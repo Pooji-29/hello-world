@@ -20,9 +20,9 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.MY_DOCKER_PASSWORD }}
+        
     - name: Build the Docker image
-      run: docker build -t pooja029/hello-world
-    - name: Run the Docker image
-      run: docker run pooja029/hello-world
+      run: docker build -t pooja029/hello-world:latest .
     - name: Push the Image
-      run: docker push pooja029/hello-world
+      run: docker push pooja029/hello-world:latest
+
