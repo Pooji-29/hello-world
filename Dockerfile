@@ -5,10 +5,10 @@ FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
 # Copy Java file into container
-COPY Hello-world.java .
+COPY HelloWorld.java .
 
 # Compile the Java file
-RUN javac Hello-world.java
+RUN javac HelloWorld.java
 
 # Run the program
-CMD ["java", "Hello-world"]
+CMD ["java", "HelloWorld"]
