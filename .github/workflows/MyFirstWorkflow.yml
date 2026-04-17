@@ -23,4 +23,4 @@ jobs:
     - name: Build the Docker image
       run: docker build -t pooja029/hello-world:latest .
     - name: Push the Image
-      run: docker push pooja029/hello-world:latest .
+      run: docker push pooja029/hello-world:latest
