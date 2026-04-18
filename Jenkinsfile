@@ -1,15 +1,25 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE = "pooja029/hello-world:latest"
+    }
+
     stages {
 
-        stage('Build Image') {
+        stage('Checkout') {
             steps {
-                sh 'docker build -t pooja029/hello-world:latest .'
+                checkout scm
             }
         }
 
-        stage('Login') {
+        stage('Build Image') {
+            steps {
+                sh 'docker build -t $IMAGE .'
+            }
+        }
+
+        stage('Login to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
@@ -17,9 +27,9 @@ pipeline {
             }
         }
 
-        stage('Push') {
+        stage('Push Image') {
             steps {
-                sh 'docker push pooja029/hello-world:latest'
+                sh 'docker push $IMAGE'
             }
         }
     }
