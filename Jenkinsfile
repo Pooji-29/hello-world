@@ -1,25 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE = "pooja029/hello-world:latest"
-    }
-
     stages {
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Pooji-29/hello-world.git'
-            }
-        }
 
         stage('Build Image') {
             steps {
-                sh 'docker build -t $IMAGE .'
+                sh 'docker build -t pooja029/hello-world:latest .'
             }
         }
 
-        stage('Login to Docker Hub') {
+        stage('Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
@@ -27,9 +17,9 @@ pipeline {
             }
         }
 
-        stage('Push Image') {
+        stage('Push') {
             steps {
-                sh 'docker push $IMAGE'
+                sh 'docker push pooja029/hello-world:latest'
             }
         }
     }
